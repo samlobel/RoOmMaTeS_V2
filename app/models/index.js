@@ -3,5 +3,5 @@ module.exports = {
   // List : require('./list.js').schema,
   // ToDoList : require('./toDoList.js').schema
   User : require('./user.js').schema,
-  Group : require('.group.js').schema
+  Group : require('./group.js').schema
 }

@@ -6,7 +6,10 @@ var User = models.User;
 
 module.exports = function(passport){
 
+
+  console.log("inside of passport, about to do its magic")
   passport.serializeUser(function(user, done){
+    console.log("serializeUser")
     done(null, user.id);
   });
 
@@ -16,14 +19,15 @@ module.exports = function(passport){
     });
   });
   
-  passport.use('local-signup', new LocalStrategy({
+  passport.use('local-register', new LocalStrategy({
       usernameField : 'username',
       passwordField : 'password',
       passReqToCallback : true // allows us to pass back the entire request to the callback
     },
     function(req, username, password, done){
+      console.log("inside of local-register")
       process.nextTick(function(){
-        User.findOne({'local.username' : username}, function(err, user){
+        User.findOne({'username' : username}, function(err, user){
           if(err){
             return done(err);
           }
@@ -32,8 +36,8 @@ module.exports = function(passport){
           }
           else{
             var newUser = new User();
-            newUser.local.username = username;
-            newUser.local.password = newUser.generateHash(password);
+            newUser.username = username;
+            newUser.password = newUser.generateHash(password);
 
             newUser.save(function(err){
               if(err){
@@ -45,21 +49,23 @@ module.exports = function(passport){
         });
       });
     })
-
   );
 
 
   passport.use('local-login', new LocalStrategy({
-        usernameField : 'email',
+        usernameField : 'username',
         passwordField : 'password',
         passReqToCallback : true
       },
-      function(req, email, password, done){
-        User.findOne({'local.email' : email}, function(err, user){
+      function(req, username, password, done){
+        console.log("about to search")
+        User.findOne({'username' : username}, function(err, user){
           if(err){
+            console.log(err)
             return done(err);
           }
           if(!user){
+            console.log("no user")
             return done(null, false)
           }
           if(!user.validPassword(password)){
