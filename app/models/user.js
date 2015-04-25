@@ -9,7 +9,7 @@ var userSchema = mongoose.Schema({
 
 userSchema.methods.getGroup = function(callback){
   //callback with err, group form
-  this.model('Group').find({users.id : this._id}, function(err, groups){
+  this.model('Group').find({'users.id' : this._id}, function(err, groups){
     if(err){
       console.log(err);
       return callback(err, null)
