@@ -1,0 +1,59 @@
+var models = require('./models/index.js')
+var _ = require('underscore')
+
+
+// function isLoggedIn(req,res,next){
+//   if(req.isAuthenticated()){
+//     console.log("Authenticated!")
+//     return next()
+//   } else{
+//     res.status(500).send({err: "isLoggedIn failed!"});
+//   }
+// }
+
+module.exports = function(app, passport){
+
+  app.post('/login', function(req,res){
+    console.log("trying to log in");
+    passport.authenticate('local-login', function(err, user, info){
+      if(err){
+        res.status(500).send({'err' : err });
+      } else if(!user){
+        res.status(500).send({'err' : "No User Found"});
+      } else{//on success
+        console.log("apparently successful, about to call login.");
+        req.logIn(user, function(err){
+          if(err){
+            console.log("error in login: ", err);
+            res.status(500).send({'err' : "failed in req.logIn"});
+          } else{
+            res.send(user);
+          }
+        });
+      }
+    })(req,res);
+  });
+
+
+    app.post('/register', function(req,res){
+    console.log("Trying to register");
+    passport.authenticate('local-register', function(err,user,info){
+      if(err){
+        res.status(500).send({"err":err});
+      } else if(!user){
+        res.status(500).send({"err" : "User found with that name"});
+      } else{//on successs
+        console.log("looks like successful, about to call logIn");
+        req.logIn(user, function(err){
+          if(err){
+            res.status(500).send({"err": "failed in req.logIn, for register"});
+          } else{
+            res.send(user);
+          }
+        });
+      }
+    })(req,res)
+  });
+
+}
+
