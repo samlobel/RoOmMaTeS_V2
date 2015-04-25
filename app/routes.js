@@ -251,7 +251,8 @@ module.exports = function(app, passport){
 
     var newGroup = new models.Group({
       groupName : groupName,
-      users: memberIDs
+      users: memberIDs,
+      messages : []
     })
 
     newGroup.save(function(err, group){
@@ -397,6 +398,43 @@ module.exports = function(app, passport){
       return res.send(messages);
     })
   })
+
+
+
+  app.post('/newMessage', function(req,res){
+    var userID = req.user._id;
+    var messageBody = req.body.messageBody; //Should be 
+    if(!messageBody){
+      return res.status.send({err: "No message body sent"})
+    }
+    getGroupFromUserID(userID, function(err, group){
+      if(err){
+        console.log(err)
+        return res.status(500).send(err);
+      }
+      var newMessage = new models.Message({
+        sender : userID,
+        body: messageBody,
+        timeStamp : new Date()
+      });
+      //I think I just need to add it to the group, and save the group...
+      group.messages.push(newMessage);
+      group.save(function(err2, groupAgain){
+        if(err2){
+          return res.status(500).send(err2);
+        }
+        return res.send(newMessage);
+      });
+      // newMessage.save(function(err2, message){
+      //   if(err2){
+      //     return res.status(500).send(err2);
+      //   }
+      //   group.messages.append()
+      //   return res.send(message)
+      // })
+
+    })
+  })
   //     var newMembers = req.body.newMembers;
   //     if(!newMembers || !newMembers.length){
   //       return res.status(500).send({err: "no new members to add"});
@@ -440,11 +478,6 @@ module.exports = function(app, passport){
   //   });
 
   // })
-
-
-
-
-
 
 }
 
