@@ -7,27 +7,32 @@ var userSchema = mongoose.Schema({
   password    : String
 });
 
-userSchema.methods.getGroup = function(callback){
-  //callback with err, group form
-  this.model('Group').find({'users.id' : this._id}, function(err, groups){
-    if(err){
-      console.log(err);
-      return callback(err, null)
-    }
-    if (!groups.length){
-      console.log("no groups match")
-      return callback({err: "No Match"}, null);
-    }
+// userSchema.methods.getGroup = function(callback){
+//   /**
+//   returns the ONE group that the person is a part of. Has standard callback
+//   signature. Returns an error if there's either no groups or more than one group.
+  
+//   */
+//   //callback with err, group form
+//   this.model('Group').find({'users.id' : this._id}, function(err, groups){
+//     if(err){
+//       console.log(err);
+//       return callback(err, null)
+//     }
+//     if (!groups.length){
+//       console.log("no groups match")
+//       return callback({err: "No Match"}, null);
+//     }
 
-    if(groups.length > 1){
-      console.log(groups.length + " group matches");
-      return callback({err: groups.length + " groups match"}, null);
-    }
-    //finally:
-    console.log("one group found");
-    return callback(null, groups[0]);
-  });
-}
+//     if(groups.length > 1){
+//       console.log(groups.length + " group matches");
+//       return callback({err: groups.length + " groups match"}, null);
+//     }
+//     //finally:
+//     console.log("one group found");
+//     return callback(null, groups[0]);
+//   });
+// }
 
 
 userSchema.methods.generateHash = function(password){
