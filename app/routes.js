@@ -195,46 +195,87 @@ module.exports = function(app, passport){
     
 
     */
+
+    //INVARIANT: NO GROUP SHOULD EVER HAVE NO MEMBERS. IT BECOMES INACCESSIBLE
     var userID = req.user._id;
-    // var query = models.Group.  
-
-    var groupID = req.body ? (req.body.group ? req.body.group._id : null) :
-                            null;
-    
-    var groupMembers = req.body ? req.body.members : null;
-
-    if(!groupID || !groupMembers){
-      return res.status(500).send({err: "Error from addMembersToGroup"});
-    }
-
-    var memberIDs = _.map(groupMembers, function(member){
-      return member._id
-    })
-
-    models.Group.findById(groupID, function(err, group){
+    models.User.findById(userID, function(err, user){
       if(err){
-        return res.status(500).send({err: "Error fetching group in addMembers"});
+        console.log(err)
+        return res.status(500).send(err);
       }
-      if(!group.users || !group.users.length){ // if there's none there
-        group.users = groupMembers;
-        group.save(function(err2, groupAgain){
-          if(err2){
-            return res.status(500).send(err2);
+      user.getGroup(function(err2, group){
+        if(err2){
+          console.log(err2);
+          return res.status(500).send(err2);
+        }
+        var newMembers= req.body.newMembers;
+        var memberIDs = _.pluck(newMembers, '_id');
+        group.users.addToSet(memberIDs);
+        group.save(function(err3, groupAgain){
+          if(err3){
+            console.log(err3)
+            return res.status(500).send(err3);
           }
-          return res.send({_id: groupID}); //Not sure if I really need to send this back...
+          return res.send(groupAgain);
         })
-      } else{
-        group.users.addToSet(memberIDs);//I think that's how it works.
-        group.save(function(err2, groupAgain){
-          if(err2){
-            return res.status(500).send(err2);
-          }
-          return res.send({_id:groupID})
-        })
-      }
-
-    })
+      })
+      
+    });
   });
+    // user.getGroup()
+    // if(!groupWeWant){
+    //   return req.status(500).send({err: "something went wrong in fetching group"});
+    // }
+    // var groupMembers = req.body.newMembers;
+    // var memberIDs = _.map(groupMembers, function(member){
+    //   return member._id
+    // })
+    // groupWeWant.users.addToSet(memberIDs); //REALLY NOT SURE THIS IS RIGHT. It's
+    //                                        //pushing strings, not objects
+
+    // groupWeWant.save(function(err))
+
+
+
+    // // var query = models.Group.
+
+
+    // var groupID = req.body ? (req.body.group ? req.body.group._id : null) :
+    //                         null;
+    
+
+    // if(!groupID || !groupMembers){
+    //   return res.status(500).send({err: "Error from addMembersToGroup"});
+    // }
+
+    // var memberIDs = _.map(groupMembers, function(member){
+    //   return member._id
+    // })
+
+    // models.Group.findById(groupID, function(err, group){
+    //   if(err){
+    //     return res.status(500).send({err: "Error fetching group in addMembers"});
+    //   }
+    //   if(!group.users || !group.users.length){ // if there's none there
+    //     group.users = groupMembers;
+    //     group.save(function(err2, groupAgain){
+    //       if(err2){
+    //         return res.status(500).send(err2);
+    //       }
+    //       return res.send({_id: groupID}); //Not sure if I really need to send this back...
+    //     })
+    //   } else{
+    //     group.users.addToSet(memberIDs);//I think that's how it works.
+    //     group.save(function(err2, groupAgain){
+    //       if(err2){
+    //         return res.status(500).send(err2);
+    //       }
+    //       return res.send({_id:groupID})
+    //     })
+    //   }
+
+    // })
+  // });
 
   
 
