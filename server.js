@@ -13,6 +13,7 @@ var session      = require('express-session');
 var configDB = require('./config/database.js');
 
 
+
 mongoose.connect(configDB.url); // connect to our database
 
 require('./config/passport')(passport); // pass passport for configuration
@@ -39,15 +40,8 @@ require('./app/routes.js')(app, passport); // load our routes and pass in our ap
 var server = require('http').createServer(app);
 var io = require('socket.io').listen(server);
 
-io.sockets.on('connect', function (socket) {
-    console.log("CONNECTED!");
-    
-    socket.on('send-message', function(data) {
-        console.log("RECEIVED MESSAGE");
-        socket.emit('send-message', data);
-        socket.broadcast.emit('send-message', data);
-    });
-});
+require('./config/socket.js')(io);
+
 
 server.listen(port);
 console.log('The magic happens on port ' + port);
