@@ -2,15 +2,6 @@ var models = require('./models/index.js')
 var _ = require('underscore')
 
 
-// function isLoggedIn(req,res,next){
-//   if(req.isAuthenticated()){
-//     console.log("Authenticated!")
-//     return next()
-//   } else{
-//     res.status(500).send({err: "isLoggedIn failed!"});
-//   }
-// }
-
 module.exports = function(app, passport){
 
   app.post('/login', function(req,res){
