@@ -9,5 +9,10 @@ module.exports = function(io){
           socket.emit('send-message', data);
           socket.broadcast.emit('send-message', data);
       });
+
+  });
+
+  io.sockets.on('error', function(err){
+    console.log(err);
   }); 
 }
