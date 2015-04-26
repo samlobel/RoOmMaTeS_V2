@@ -1,6 +1,5 @@
 var express = require('express');
 var app = express()
-var port = process.env.PORT || 8080
 var mongoose = require('mongoose');
 var passport = require('passport');
 
@@ -43,5 +42,6 @@ var io = require('socket.io').listen(server);
 require('./config/socket.js')(io);
 
 
+var port = process.env.PORT || 8080
 server.listen(port);
 console.log('The magic happens on port ' + port);
