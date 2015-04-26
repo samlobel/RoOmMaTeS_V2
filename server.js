@@ -39,18 +39,15 @@ require('./app/routes.js')(app, passport); // load our routes and pass in our ap
 var server = require('http').createServer(app);
 var io = require('socket.io').listen(server);
 
-io.on('connection', function (socket) {
+io.sockets.on('connect', function (socket) {
     console.log("CONNECTED!");
     
     socket.on('send-message', function(data) {
         console.log("RECEIVED MESSAGE");
-        socket.emit('send-message', { data : "EMIT FROM app" });
-        socket.broadcast.emit('send message', {
-            user: "user",
-            message: "message"
-        });
+        socket.emit('send-message', data);
+        socket.broadcast.emit('send-message', data);
     });
 });
 
-app.listen(port);
+server.listen(port);
 console.log('The magic happens on port ' + port);
