@@ -40,6 +40,8 @@ var server = require('http').createServer(app);
 var io = require('socket.io').listen(server);
 
 require('./config/socket.js')(io);
+require('./config/http.js')(server);
+
 
 
 var port = process.env.PORT || 8080
