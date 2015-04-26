@@ -35,7 +35,22 @@ app.use(require('./app/AuthMiddleware.js')) //I think this is right, it may not 
 require('./app/routes.js')(app, passport); // load our routes and pass in our app and fully configured passport
 
 
+// WEBSOCKETS CODE
+var server = require('http').createServer(app);
+var io = require('socket.io').listen(server);
+
+io.on('connection', function (socket) {
+    console.log("CONNECTED!");
+    
+    socket.on('send-message', function(data) {
+        console.log("RECEIVED MESSAGE");
+        socket.emit('send-message', { data : "EMIT FROM app" });
+        socket.broadcast.emit('send message', {
+            user: "user",
+            message: "message"
+        });
+    });
+});
+
 app.listen(port);
 console.log('The magic happens on port ' + port);
-
-
