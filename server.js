@@ -29,6 +29,12 @@ app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
 
 
+
+// app.use(function(req,res,next){console.log(req); res.set("Connection", "close"); res.set("Content-Type", "application/json"); next()}); //solves some bug about keep-alive in ios. necessary evil
+app.use(function(req,res,next){res.set("Connection", "close"); next()});
+//maybe this isn't the best place for it though, who knows.
+  
+
 require('./app/preAuthRoutes.js')(app, passport); //these are things that don't need authentication.
 
 app.use(require('./app/AuthMiddleware.js')) //I think this is right, it may not be able to get past it.

@@ -8,7 +8,7 @@ var userMethods = require('./controllers/userMethods');
 
 module.exports = function(app, passport){
 
-  app.get('/getUsers', userMethods.getUsers);
+  app.get('/getUsersWithPrefix', userMethods.getUsersWithPrefix);
 
 
   app.post('/createNewGroup', groupMethods.createNewGroup);

@@ -4,7 +4,7 @@ var helperFunctions = require('./helperFunctions')
 
 
 module.exports = {
-  getUsers : function getUsers(req,res){
+  getUsersWithPrefix : function getUsers(req,res){
     /*
       get users whose name starts with a certain prefix.
     */
@@ -17,10 +17,12 @@ module.exports = {
     var returnFields = ['username', '_id'];
 
     //this should send the response.
-    autocomplete(modelType, field, prefix, minLen, returnFields, function(err,toSend){
+    helperFunctions.autocomplete(modelType, field, prefix, minLen, returnFields, function(err,toSend){
       if(err){
+        console.log(err)
         res.status(500).send({err: err})
       }else{
+        console.log(toSend);
         res.send(toSend);
       }
     });
