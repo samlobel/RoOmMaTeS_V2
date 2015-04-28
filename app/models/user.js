@@ -4,7 +4,13 @@ var bcrypt = require('bcrypt-nodejs');
 var userSchema = mongoose.Schema({
 
   username    : String,
-  password    : String
+  password    : String,
+  venmo : {
+    access_token : String,
+    expires : Date,
+    refresh_token : String,
+    phone_number : String
+  }
 });
 
 

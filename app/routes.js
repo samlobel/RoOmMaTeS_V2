@@ -10,6 +10,10 @@ module.exports = function(app, passport){
 
   app.get('/getUsersWithPrefix', userMethods.getUsersWithPrefix);
 
+  app.get('/isUserPartOfGroup', groupMethods.isUserPartOfGroup);
+
+  app.get('/getUsersGroupsUserList', groupMethods.getUsersGroupsUserList);
+
 
   app.post('/createNewGroup', groupMethods.createNewGroup);
 
