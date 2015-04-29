@@ -1,5 +1,6 @@
 var models = require('../models/index.js')
 var _ = require('underscore')
+var ObjectId = require('mongoose').Types.ObjectId;
 
 
 module.exports = {
@@ -97,7 +98,7 @@ module.exports = {
     safeOptions = options || {}
     safeOptions.populateFields = safeOptions.populateFields || ""
     
-    models.Group.find({'users.id' : userID})
+    models.Group.find({'users._id' : new ObjectId(userID)})
       .populate(safeOptions.populateFields)
       .exec(function(err, groups){
       //finds a group that has this user in its array.

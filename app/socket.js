@@ -9,6 +9,7 @@ module.exports = function(io){
       console.log("CONNECTED!");
       
       socket.on('send-message', function(data) {
+          console.log(data)
           console.log("RECEIVED MESSAGE");
           dataObj = data[0];
           messageObj = {
@@ -18,6 +19,7 @@ module.exports = function(io){
           }
           socketMessages.saveMessageToGroup(messageObj, function(err, message){
             if(err){
+              console.log("saveMessage callback error:")
               console.log(err);
               return
             } else{
