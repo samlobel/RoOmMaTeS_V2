@@ -81,7 +81,7 @@ module.exports = function(app, passport){
       url,
       data,
       function (err, response, body) {
-        if (!error && response.statusCode == 200) {
+        if (!error) {
             console.log('Got venmo credentials');
             console.log(body);
             res.redirect('RoommatesApp://');
