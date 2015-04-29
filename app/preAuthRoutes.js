@@ -80,8 +80,8 @@ module.exports = function(app, passport){
     request.post(
       url,
       data,
-      function (err, res, body) {
-        if (!error && res.statusCode == 200) {
+      function (err, response, body) {
+        if (!error && response.statusCode == 200) {
             console.log('Got venmo credentials');
             console.log(body);
             res.redirect('RoommatesApp://');
@@ -89,7 +89,7 @@ module.exports = function(app, passport){
 
             // Save credentials
         } else {
-          console.log(res.statusCode);
+          console.log(response.statusCode);
           console.log(err);
           res.redirect('RoommatesApp://');
         }
