@@ -17,7 +17,9 @@ module.exports = {
         console.log(err)
         return res.status(500).send(err);
       }
+      console.log(group)
       var messages = group.messages;
+      console.log(messages)
       messages = messages ? messages : [];
       return res.send(messages);
     })
