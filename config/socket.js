@@ -6,8 +6,8 @@ module.exports = function(io){
       
       socket.on('send-message', function(data) {
           console.log("RECEIVED MESSAGE");
-          // socket.emit('send-message', data);
-          socket.broadcast.emit('send-message', data);
+          socket.emit('send-message', data);
+          // socket.broadcast.emit('send-message', data);
       });
 
   });
