@@ -58,6 +58,7 @@ module.exports = function(app, passport){
 /* Venmo Routes */
 
   function makeUserVenmoFromBody(body){
+    console.log(body.user);
     var toReturn = {
       access_token : body.access_token,
       expires : new Date(),
