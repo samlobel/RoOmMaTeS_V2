@@ -46,5 +46,15 @@ module.exports = function(app, passport){
     })(req,res)
   });
 
+
+  app.get('/venmo-auth', function(req,res){
+    console.log("Registering venmo");
+    var error = req.query.error;
+    if(error){
+      console.log(error);
+    }
+    res.redirect('RoommatesApp://')
+  });
+
 }
 
