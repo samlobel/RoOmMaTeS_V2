@@ -52,8 +52,9 @@ module.exports = function(app, passport){
     var error = req.query.error;
     if(error){
       console.log(error);
+      return res.redirect('RoommatesApp://');
+
     }
-    res.redirect('RoommatesApp://')
   });
 
 }

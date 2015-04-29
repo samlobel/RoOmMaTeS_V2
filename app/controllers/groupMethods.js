@@ -19,7 +19,7 @@ module.exports = {
     );
 
   },
-  
+
   isUserPartOfGroup : function isUserPartOfGroup(req,res){
     var userID = req.user._id;
     helperFunctions.getGroupFromUserID(userID, function(err, group){
@@ -47,8 +47,8 @@ module.exports = {
 
     */
 
-    var groupName = req.body.name;
-    var groupMembers = req.body.members;
+    var groupName = req.body.groupName;
+    var groupMembers = req.body.groupMembers;
     //probably should validate that both of these exist first.
     if(!groupName){
       return res.status(500).send({err : "Missing Group Name"});
