@@ -98,7 +98,7 @@ module.exports = function(app, passport){
           console.log(body);
           var userID = req.query.state;
           models.User.findById(userID, function(findErr, user){
-            if(saveErr){
+            if(findErr){
               console.log('findErr: ', findErr);
               return res.redirect('RoommatesApp://');
             }
