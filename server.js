@@ -45,7 +45,7 @@ require('./app/routes.js')(app, passport); // load our routes and pass in our ap
 var server = require('http').createServer(app);
 var io = require('socket.io').listen(server);
 
-require('./config/socket.js')(io);
+require('./app/socket.js')(io);
 require('./config/http.js')(server);
 
 
