@@ -14,7 +14,7 @@ module.exports = {
     //console.log(req);
     var modelType = 'User';
     var field = 'username';
-    var minLen = 2;
+    var minLen = 0;
     var prefix = req.query.prefix;
     var returnFields = ['username', '_id'];
 
