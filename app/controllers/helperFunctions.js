@@ -97,11 +97,14 @@ module.exports = {
     }
     safeOptions = options || {}
     safeOptions.populateFields = safeOptions.populateFields || ""
+
+    console.log(userID);
     
-    models.Group.find({'users._id' : new ObjectId(userID)})
+    models.Group.find({users : new ObjectId(userID)})
       .populate(safeOptions.populateFields)
       .exec(function(err, groups){
-      //finds a group that has this user in its array.
+        //finds a group that has this user in its array.
+        // console.log(groups)
         if(err){
           console.log(err);
           return callback(err, null);

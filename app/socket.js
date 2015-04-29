@@ -13,7 +13,7 @@ module.exports = function(io){
           console.log("RECEIVED MESSAGE");
           dataObj = data[0];
           messageObj = {
-            sender : dataObj['user_id'],
+            sender : dataObj['_id'],
             body: dataObj['message'],
             timeStamp : new Date()
           }
