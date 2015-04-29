@@ -7,7 +7,7 @@ var helperFunctions = require('./controllers/helperFunctions.js')
 
 module.exports = function(io, user){
   // io.sockets.on('connect', function (socket) {
-  io.on('connect', function(socket){
+  io.sockets.on('connect', function(socket){
     var userID = user._id;
     helperFunctions.getGroupFromUserID(userID, function(err, group){
       console.log("in socket callback");
@@ -41,7 +41,7 @@ module.exports = function(io, user){
     })
   });
   
-  io.on('error', function(err){
+  io.sockets.on('error', function(err){
     console.log("SOCKET ERROR: " + err);
   })
 }
