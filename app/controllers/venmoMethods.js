@@ -8,6 +8,7 @@ var helperFunctions = require('./helperFunctions')
 // that was what venmo sent when I hit "deny"
 
 module.exports = {
+  
   hasBeenValidated: function hasBeenValidated(){
     var userID = req.user._id;
 

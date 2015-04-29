@@ -13,6 +13,9 @@ var configDB = require('./config/database.js');
 
 
 
+
+
+
 mongoose.connect(configDB.url); // connect to our database
 
 require('./config/passport')(passport); // pass passport for configuration
@@ -44,6 +47,7 @@ require('./app/routes.js')(app, passport); // load our routes and pass in our ap
 // WEBSOCKETS CODE
 var server = require('http').createServer(app);
 var io = require('socket.io').listen(server);
+
 
 require('./app/socket.js')(io);
 require('./config/http.js')(server);
