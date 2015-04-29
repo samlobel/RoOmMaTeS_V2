@@ -1,6 +1,8 @@
 var models = require('./models/index.js')
 var _ = require('underscore')
 var socket = require('./socket.js');
+var request = require('request');
+
 
 
 module.exports = function(app, passport){
@@ -69,7 +71,6 @@ module.exports = function(app, passport){
     console.log(req.query);
 
     // Post auth data to venmo
-    var request = require('request');
     var data = {
       'client_id' : '2583',
       'client_secret' : 'PcY324UY8Fdhs3RCsUR5c4Nthd2Hy6Mx',
@@ -77,22 +78,26 @@ module.exports = function(app, passport){
     }
     var url = 'https://api.venmo.com/v1/oauth/access_token';
     request.post(
-      'https://api.venmo.com/v1/oauth/access_token',
+      url,
       data,
       function (err, res, body) {
         if (!error && res.statusCode == 200) {
             console.log('Got venmo credentials');
             console.log(body);
+            res.redirect('RoommatesApp://');
+
 
             // Save credentials
         } else {
+          console.log(res.statusCode);
           console.log(err);
+          res.redirect('RoommatesApp://');
         }
       });
 
     // Return to app
-    console.log("Throw redirect");
-    res.redirect('RoommatesApp://');
+    // console.log("Throw redirect");
+    // res.redirect('RoommatesApp://');
 
   });
 
