@@ -6,7 +6,7 @@ var helperFunctions = require('./helperFunctions')
 module.exports = {
 
 
-  getUsersGroupsUserList : function getUsersGroupUserList(req,res){
+  getGroupMembers : function getGroupMembers(req,res){
     var userID = req.user._id;
     helperFunctions.getGroupFromUserID(userID, {populateFields : "users"},
       function(err, group){

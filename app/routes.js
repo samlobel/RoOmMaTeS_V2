@@ -12,7 +12,7 @@ module.exports = function(app, passport){
 
   app.get('/isUserPartOfGroup', groupMethods.isUserPartOfGroup);
 
-  app.get('/getUsersGroupsUserList', groupMethods.getUsersGroupsUserList);
+  app.get('/getGroupMembers', groupMethods.getGroupMembers);
 
 
   app.post('/createNewGroup', groupMethods.createNewGroup);

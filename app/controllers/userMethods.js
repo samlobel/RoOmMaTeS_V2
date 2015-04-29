@@ -2,7 +2,6 @@ var models = require('../models/index.js')
 var _ = require('underscore')
 var helperFunctions = require('./helperFunctions')
 
-
 module.exports = {
   getUsersWithPrefix : function getUsers(req,res){
     /*
@@ -29,5 +28,4 @@ module.exports = {
       }
     });
   }
-
 }
