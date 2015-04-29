@@ -3,6 +3,7 @@ var _ = require('underscore')
 var async = require('async')
 var groupMethods = require('./controllers/groupMethods.js');
 var messageMethods = require('./controllers/messageMethods');
+var venmoMethods = require('./controllers/venmoMethods')
 var userMethods = require('./controllers/userMethods');
 
 
@@ -11,6 +12,8 @@ module.exports = function(app, passport){
   app.get('/getUsersWithPrefix', userMethods.getUsersWithPrefix);
 
   // app.get('/isUserPartOfGroup', groupMethods.isUserPartOfGroup);
+
+  app.get('/hasBeenVenmoValidated', venmoMethods.hasBeenVenmoValidated);
 
   app.get('/getGroupMembers', groupMethods.getGroupMembers);
 
