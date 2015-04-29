@@ -1,5 +1,5 @@
 var models = require('../app/models/index.js');
-var socketMessages = require('socket_controllers/socketMessages.js');
+var socketMessages = require('./socket_controllers/socketMessages.js');
 
 
 
