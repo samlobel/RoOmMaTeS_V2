@@ -24,7 +24,7 @@ module.exports = function(io){
               return
             } else{
               console.log("about to send socket message");
-              socket.emit('send-message', data);
+              socket.broadcast.emit('send-message', data);
             }
           })
 
