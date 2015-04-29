@@ -54,7 +54,6 @@ module.exports = function(app, passport){
 
 
 /* Venmo Routes */
-  var data;
   
   app.get('/venmo-auth', function(req,res){
     console.log('Venmo tried to authorize');
@@ -69,26 +68,14 @@ module.exports = function(app, passport){
     console.log('Venmo use authorized');
     console.log(req.query);
 
-    // Send Auth data back to venmo
-    data = {
+    // Post auth data to venmo
+    var request = require('request');
+    var data = {
       'client_id' : '2583',
       'client_secret' : 'PcY324UY8Fdhs3RCsUR5c4Nthd2Hy6Mx',
       'code' :  req.query.code
     }
     var url = 'https://api.venmo.com/v1/oauth/access_token';
-
-    console.log("Throw redirect");
-    res.redirect('/catch-venmo');
-
-  });
-
-
-  app.get('/catch-venmo', function (req, res) {
-    console.log('Caught redirect');
-
-    // Post auth data to venmo
-    var request = require('request');
-    console.log(request);
     request.post(
       'https://api.venmo.com/v1/oauth/access_token',
       data,
@@ -102,7 +89,9 @@ module.exports = function(app, passport){
       });
 
     // Return to app
+    console.log("Throw redirect");
     res.redirect('RoommatesApp://');
+
   });
 
 }
