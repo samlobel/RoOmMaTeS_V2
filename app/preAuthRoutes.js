@@ -1,8 +1,9 @@
 var models = require('./models/index.js')
 var _ = require('underscore')
+var socket = require('./socket.js');
 
 
-module.exports = function(app, passport){
+module.exports = function(app, passport, io){
 
   app.post('/login', function(req,res){
     console.log("trying to log in");
@@ -18,6 +19,8 @@ module.exports = function(app, passport){
             console.log("error in login: ", err);
             res.status(500).send({'err' : "failed in req.logIn"});
           } else{
+            socket(io, user); //this connects to the group we're in.
+            //no group, no socket, but no biggie.
             res.send(user);
           }
         });
