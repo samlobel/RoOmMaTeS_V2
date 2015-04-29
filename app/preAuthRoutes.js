@@ -77,9 +77,10 @@ module.exports = function(app, passport){
       'code' :  req.query.code
     }
     var url = 'https://api.venmo.com/v1/oauth/access_token';
-    request.post(
-      url,
-      data,
+    request.post({
+      "url" :  url,
+      "formData": data
+    },
       function (err, response, body) {
         if (!error) {
             console.log('Got venmo credentials');
