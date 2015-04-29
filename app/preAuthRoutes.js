@@ -56,6 +56,18 @@ module.exports = function(app, passport){
 
 
 /* Venmo Routes */
+
+  // function makeUserVenmoFromBody(body){
+  //   var newDate = 
+  //   var toReturn = {
+  //     access_token : body.access_token,
+  //     expires : Date,
+  //     refresh_token : String,
+  //     phone_number : String
+  // }
+
+  //   }
+  // }
   
   app.get('/venmo-auth', function(req,res){
     console.log('Venmo tried to authorize');
@@ -85,7 +97,15 @@ module.exports = function(app, passport){
         if (!error) {
             console.log('Got venmo credentials');
             console.log(body);
-            res.redirect('RoommatesApp://');
+            var userID = req.query.state;
+            models.User.findById(userID, function(saveErr, user){
+              if(saveErr){
+                console.log('saveErr: ', saveErr);
+                return res.redirect('RoommatesApp://');
+              }
+
+            });
+
 
 
             // Save credentials
