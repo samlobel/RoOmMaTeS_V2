@@ -12,7 +12,6 @@ var session      = require('express-session');
 var configDB = require('./config/database.js');
 
 
-var io = require('socket.io').listen(server);
 
 
 
@@ -39,7 +38,7 @@ app.use(function(req,res,next){res.set("Connection", "close"); next()});
 //maybe this isn't the best place for it though, who knows.
   
 
-require('./app/preAuthRoutes.js')(app, passport, io); //these are things that don't need authentication.
+require('./app/preAuthRoutes.js')(app, passport); //these are things that don't need authentication.
 
 app.use(require('./app/AuthMiddleware.js')) //I think this is right, it may not be able to get past it.
 require('./app/routes.js')(app, passport); // load our routes and pass in our app and fully configured passport
@@ -47,6 +46,8 @@ require('./app/routes.js')(app, passport); // load our routes and pass in our ap
 
 // WEBSOCKETS CODE
 var server = require('http').createServer(app);
+var io = require('socket.io').listen(server);
+
 
 require('./app/socket.js')(io);
 require('./config/http.js')(server);

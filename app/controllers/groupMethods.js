@@ -20,16 +20,16 @@ module.exports = {
 
   },
 
-  isUserPartOfGroup : function isUserPartOfGroup(req,res){
-    var userID = req.user._id;
-    helperFunctions.getGroupFromUserID(userID, function(err, group){
-      if(group){
-        return res.send({answer : true});
-      } else{
-        return res.send({answer : false}); //maybe should have error handling, not sure.
-      }
-    })
-  },
+  // isUserPartOfGroup : function isUserPartOfGroup(req,res){
+  //   var userID = req.user._id;
+  //   helperFunctions.getGroupFromUserID(userID, function(err, group){
+  //     if(group){
+  //       return res.send({answer : true});
+  //     } else{
+  //       return res.send({answer : false}); //maybe should have error handling, not sure.
+  //     }
+  //   })
+  // },
 
 
   createNewGroup : function createNewGroup(req,res){
