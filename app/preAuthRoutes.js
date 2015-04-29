@@ -57,17 +57,16 @@ module.exports = function(app, passport){
 
 /* Venmo Routes */
 
-  // function makeUserVenmoFromBody(body){
-  //   var newDate = 
-  //   var toReturn = {
-  //     access_token : body.access_token,
-  //     expires : Date,
-  //     refresh_token : String,
-  //     phone_number : String
-  // }
+  function makeUserVenmoFromBody(body){
+    var toReturn = {
+      access_token : body.access_token,
+      expires : new Date(),
+      refresh_token : body.refresh_token,
+      phone_number : body.user.phone
+    }
+    return toReturn
 
-  //   }
-  // }
+  }
   
   app.get('/venmo-auth', function(req,res){
     console.log('Venmo tried to authorize');
@@ -95,21 +94,35 @@ module.exports = function(app, passport){
     },
       function (err, response, body) {
         if (!error) {
-            console.log('Got venmo credentials');
-            console.log(body);
-            var userID = req.query.state;
-            models.User.findById(userID, function(saveErr, user){
+          console.log('Got venmo credentials');
+          console.log(body);
+          var userID = req.query.state;
+          models.User.findById(userID, function(findErr, user){
+            if(saveErr){
+              console.log('findErr: ', findErr);
+              return res.redirect('RoommatesApp://');
+            }
+
+            var venmoObj = makeUserVenmoFromBody(body);
+            user.venmo = venmoObj;
+            user.save(function(saveErr, newUser){
               if(saveErr){
-                console.log('saveErr: ', saveErr);
+                console.log('save err: ', saveErr);
                 return res.redirect('RoommatesApp://');
               }
+              console.log("NEW USER")
+              console.log(newUser);
+              return res.redirect('RoommatesApp://');
+            })
 
-            });
+
+          });
 
 
 
             // Save credentials
-        } else {
+        }
+        else {
           console.log(response.statusCode);
           console.log(err);
           res.redirect('RoommatesApp://');
