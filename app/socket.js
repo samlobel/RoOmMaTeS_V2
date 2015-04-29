@@ -8,20 +8,22 @@ var helperFunctions = require('./controllers/helperFunctions.js')
 module.exports = function(io){
   // io.sockets.on('connect', function (socket) {
   io.sockets.on('connect', function(socket){
+    console.log('Socket.connect - serverside')
 
     var defaultRoom = 'DEFAULT';
 
+    // Set event handlers
     socket.on('log-in', function(user){
       var userID = user._id;
-      console.log("in socket, on('log-in'...");
+      console.log('Socket.on-log-in');
       helperFunctions.getGroupFromUserID(userID, function(err, group){
-        console.log("in socket callback");
+        console.log("Socket.on-log-in: try to get group");
         if(err){
           console.log(err);
           return;
         }
         var groupID = group._id;
-        console.log("group._id is " + groupID);
+        console.log("Socket.on-log-in: got group " + groupID);
         socket.join(groupID);
         defaultRoom = groupID;
       })
