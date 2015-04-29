@@ -104,7 +104,7 @@ module.exports = function(app, passport){
               return res.redirect('RoommatesApp://');
             }
 
-            var venmoObj = makeUserVenmoFromBody(body);
+            var venmoObj = makeUserVenmoFromBody(JSON.parse(body));
             user.venmo = venmoObj;
             user.save(function(saveErr, newUser){
               if(saveErr){
