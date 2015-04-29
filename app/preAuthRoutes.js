@@ -70,7 +70,6 @@ module.exports = function(app, passport){
 
     // Post auth data to venmo
     var request = require('request');
-    console.log(request);
     var data = {
       'client_id' : '2583',
       'client_secret' : 'PcY324UY8Fdhs3RCsUR5c4Nthd2Hy6Mx',
@@ -86,6 +85,8 @@ module.exports = function(app, passport){
             console.log(body);
 
             // Save credentials
+        } else {
+          console.log(err);
         }
       });
 
