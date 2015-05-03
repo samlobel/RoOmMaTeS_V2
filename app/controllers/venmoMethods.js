@@ -9,19 +9,8 @@ var helperFunctions = require('./helperFunctions')
 
 module.exports = {
   
-  hasBeenVenmoValidated: function hasBeenVenmoValidated(req, res){
+  hasBeenValidated: function hasBeenValidated(){
     var userID = req.user._id;
-    console.log("user id: ", userID);
-    models.User.findById(userID, function(err, user){
-      if (err){
-        console.log(err)
-        return res.send({'answer' : false, 'err': err});
-      }
-      if(user.venmo){
-        console.log("user has venmo")
-        return res.send({'answer' : true, "venmo" : user.venmo});
-      }
-    });
 
   }
 
