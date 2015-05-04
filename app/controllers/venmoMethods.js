@@ -12,7 +12,12 @@ module.exports = {
   venmoValidated: function venmoValidated(req, res){
     var userID = req.user._id;
 
+    console.log("CHECK VENMO VALIDATED");
     console.log(userID);
+
+    // Lookup THIS user
+
+    // Respond with res.send({answer: yes});
 
   }
 
