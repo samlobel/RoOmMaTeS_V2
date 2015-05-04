@@ -60,20 +60,28 @@ module.exports = {
       return member._id;
     })
     memberIDs.push(req.user._id);//add yourself to that list.
-
-    var newGroup = new models.Group({
-      groupName : groupName,
-      users: memberIDs,
-      messages : []
-    })
-
-    newGroup.save(function(err, group){
+    models.Group.find({"users._id" : {$in : memberIDs}}).exec(function(err, groups){
       if(err){
-        return res.status(500).send({err: "error in saving new group"})
-      } else{
-        return res.send(group)
+        return res.status(500).send({'err': err});
       }
+      if(groups.length > 0){
+        return res.status(500).send({'err' : "someone is already in a group"});
+      }
+      var newGroup = new models.Group({
+        groupName : groupName,
+        users: memberIDs,
+        messages : []
+      })
+
+      newGroup.save(function(err2, group){
+        if(err2){
+          return res.status(500).send({err: "error in saving new group"})
+        } else{
+          return res.send(group);
+        }
+      })
     })
+
   },
 
 
