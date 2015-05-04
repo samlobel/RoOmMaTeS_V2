@@ -1,6 +1,8 @@
 var models = require('../models/index.js')
 var _ = require('underscore')
 var helperFunctions = require('./helperFunctions')
+var ObjectId = require('mongoose').Types.ObjectId;
+
 
 
 module.exports = {
@@ -60,7 +62,11 @@ module.exports = {
       return member._id;
     })
     memberIDs.push(req.user._id);//add yourself to that list.
-    models.Group.find({"users._id" : {$in : memberIDs}}).exec(function(err, groups){
+    member_ids = _.map(memberIDs, function(id){
+      return ObjectId(id)
+;
+    })
+    models.Group.find({"users" : {$in : member_ids}}).exec(function(err, groups){
       if(err){
         return res.status(500).send({'err': err});
       }
