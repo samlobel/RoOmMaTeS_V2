@@ -64,7 +64,8 @@ module.exports = function(app, passport){
       expires_in : body.expires_in,
       refresh_token : body.refresh_token,
       profile_picture_url : body.user.profile_picture_url,
-      username : body.user.username
+      username : body.user.username,
+      balance : body.balance
     }
     return toReturn
 
