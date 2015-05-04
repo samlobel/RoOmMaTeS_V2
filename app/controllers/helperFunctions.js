@@ -124,40 +124,4 @@ module.exports = {
     )
   }
 
-  getUserVenmoValidated: function getUserVenmoValidated(userID, options, callback){
-
-    if (typeof options == 'function'){
-      callback = options;
-      options = {};
-    }
-    safeOptions = options || {}
-    safeOptions.populateFields = safeOptions.populateFields || ""
-
-    console.log(userID);
-    
-    models.User.find({users : new ObjectId(userID)})
-      .populate(safeOptions.populateFields)
-      .exec(function(err, groups){
-        //finds a group that has this user in its array.
-        // console.log(groups)
-        if(err){
-          console.log(err);
-          return callback(err, null);
-        }
-        if(!groups || !groups.length){
-          console.log("no group")
-          return callback({err: "No group"}, null)
-        }
-        if(groups.length > 1){
-          console.log("too many groups");
-          return callback({err: "Too many groups"}, null)
-        }
-        //if all is well, return callback. Standard callback signature.
-        console.log("one group found");
-        return callback(null, groups[0]);
-      }
-    )
-  }
-
-
 }
