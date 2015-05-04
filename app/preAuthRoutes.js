@@ -61,9 +61,10 @@ module.exports = function(app, passport){
     console.log(body.user);
     var toReturn = {
       access_token : body.access_token,
-      expires : new Date(),
+      expires_in : body.expires_in,
       refresh_token : body.refresh_token,
-      phone_number : body.user.phone
+      profile_picture_url : body.user.profile_picture_url,
+      username : body.user.username
     }
     return toReturn
 
@@ -84,8 +85,8 @@ module.exports = function(app, passport){
 
     // Post auth data to venmo
     var data = {
-      "client_id": 2583,
-      'client_secret' : 'PcY324UY8Fdhs3RCsUR5c4Nthd2Hy6Mx',
+      "client_id": 1967,
+      'client_secret' : 'u5ZwJ2tXdWQZEWjjhfznj5erjZLjbbGp',
       'code' :  req.query.code
     }
     var url = 'https://api.venmo.com/v1/oauth/access_token';
@@ -106,13 +107,13 @@ module.exports = function(app, passport){
 
             var venmoObj = makeUserVenmoFromBody(JSON.parse(body));
             user.venmo = venmoObj;
-            user.save(function(saveErr, newUser){
+            user.save(function(saveErr, venmoUser){
               if(saveErr){
                 console.log('save err: ', saveErr);
                 return res.redirect('RoommatesApp://');
               }
-              console.log("NEW USER")
-              console.log(newUser);
+              console.log("ADDED VENMO USER")
+              console.log(venmoUser);
               return res.redirect('RoommatesApp://');
             })
 
