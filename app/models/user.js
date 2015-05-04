@@ -7,9 +7,11 @@ var userSchema = mongoose.Schema({
   password    : String,
   venmo : {
     access_token : String,
-    expires : Date,
+    expires_in : Date,
     refresh_token : String,
-    phone_number : String
+    profile_picture_url : String,
+    username: String,
+    balance: String
   }
 });
 

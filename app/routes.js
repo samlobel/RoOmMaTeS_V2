@@ -14,6 +14,8 @@ module.exports = function(app, passport){
 
   app.get('/getGroupMembers', groupMethods.getGroupMembers);
 
+  app.get('/venmoValidated', venmoMethods.venmoValidated);
+
 
   app.post('/createNewGroup', groupMethods.createNewGroup);
 
@@ -26,6 +28,8 @@ module.exports = function(app, passport){
 
 
   app.post('/newMessage', messageMethods.newMessage);
+
+
 
 }
 

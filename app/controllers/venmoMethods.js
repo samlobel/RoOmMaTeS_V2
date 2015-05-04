@@ -9,8 +9,10 @@ var helperFunctions = require('./helperFunctions')
 
 module.exports = {
   
-  hasBeenValidated: function hasBeenValidated(){
+  venmoValidated: function venmoValidated(req, res){
     var userID = req.user._id;
+
+    console.log(userID);
 
   }
 
