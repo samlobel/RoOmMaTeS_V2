@@ -4,6 +4,7 @@ var async = require('async')
 var groupMethods = require('./controllers/groupMethods.js');
 var messageMethods = require('./controllers/messageMethods');
 var userMethods = require('./controllers/userMethods');
+var venmoMethods = require('./controllers/venmoMethods');
 
 
 module.exports = function(app, passport){
