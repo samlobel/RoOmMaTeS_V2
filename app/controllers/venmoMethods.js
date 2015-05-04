@@ -17,9 +17,12 @@ module.exports = {
         console.log(err)
         return res.send({'answer' : false, 'err': err});
       }
-      if(user.venmo){
+      if(user.venmo && user.venmo.username){
         console.log("user has venmo")
         return res.send({'answer' : true, "venmo" : user.venmo});
+      }
+      else{
+        return res.send({'answer' : false});
       }
     });
 
