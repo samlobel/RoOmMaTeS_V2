@@ -9,15 +9,19 @@ var helperFunctions = require('./helperFunctions')
 
 module.exports = {
   
-  venmoValidated: function venmoValidated(req, res){
+  hasBeenVenmoValidated: function hasBeenVenmoValidated(req, res){
     var userID = req.user._id;
-
-    console.log("CHECK VENMO VALIDATED");
-    console.log(userID);
-
-    // Lookup THIS user
-
-    // Respond with res.send({answer: yes});
+    console.log("user id: ", userID);
+    models.User.findById(userID, function(err, user){
+      if (err){
+        console.log(err)
+        return res.send({'answer' : false, 'err': err});
+      }
+      if(user.venmo){
+        console.log("user has venmo")
+        return res.send({'answer' : true, "venmo" : user.venmo});
+      }
+    });
 
   }
 
