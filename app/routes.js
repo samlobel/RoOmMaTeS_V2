@@ -15,7 +15,7 @@ module.exports = function(app, passport){
 
   app.get('/getGroupMembers', groupMethods.getGroupMembers);
 
-  app.get('/venmoValidated', venmoMethods.venmoValidated);
+  app.get('/hasBeenVenmoValidated', venmoMethods.hasBeenVenmoValidated);
 
 
   app.post('/createNewGroup', groupMethods.createNewGroup);
