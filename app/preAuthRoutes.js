@@ -106,6 +106,7 @@ module.exports = function(app, passport){
             }
 
             var venmoObj = makeUserVenmoFromBody(JSON.parse(body));
+            console.log(venmoObj);
             user.venmo = venmoObj;
             user.save(function(saveErr, venmoUser){
               if(saveErr){
